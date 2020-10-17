@@ -69,7 +69,7 @@ class GLGL(object):
             win.flip()
             flag = True
             while flag:
-                keys = event.getKeys(keyList=['m'])
+                keys = event.waitKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         globalFirstInstructionImage.autoDraw = False
@@ -79,7 +79,7 @@ class GLGL(object):
 
             temp = True
             while temp:
-                keys = event.getKeys(keyList=['m'])
+                keys = event.waitKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         instructionImage2.autoDraw = False
@@ -102,6 +102,7 @@ class GLGL(object):
                             fixationPoint.autoDraw = False
 
                             gtypeRandom = random.randint(0, 1)
+
                             # print('type is ' + str(typeRandom))
                             # print('i counter is ' + str(i_counter))
                             # print('c counter is ' + str(c_counter))
@@ -152,11 +153,11 @@ class GLGL(object):
                             testTimer = core.CountdownTimer(4)
                             flag = True
                             while flag:
-                                keys = event.getKeys(keyList=['end', 'down'])
+                                keys = event.waitKeys(keyList=['end', 'down'], maxWait=4)
                                 if keys:
 
                                     if gtypeRandom == 0 and (rand1 == 1 or rand1 == 2):
-                                        if keys[0] == 'end':
+                                        if keys[0] == 'end' or keys[0] == '1':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -166,7 +167,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if gtypeRandom == 0 and (rand1 == 0 or rand1 == 3):
-                                        if keys[0] == 'down':
+                                        if keys[0] == 'down'or keys[0] == '2':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -176,7 +177,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if gtypeRandom == 1 and (rand1 == 0 or rand1 == 3):
-                                        if keys[0] == 'end':
+                                        if keys[0] == 'end' or keys[0] == '1':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -186,7 +187,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if gtypeRandom == 1 and (rand1 == 1 or rand1 == 2):
-                                        if keys[0] == 'down':
+                                        if keys[0] == 'down' or keys[0] == '2':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -208,7 +209,7 @@ class GLGL(object):
 
             temp1 = True
             while temp1:
-                keys = event.getKeys(keyList=['m'])
+                keys = event.waitKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         globalSecondInstructionImage.autoDraw = False
@@ -233,14 +234,56 @@ class GLGL(object):
                             rand1 = random.randint(0, 3)
                             rand2 = 3 - rand1
 
-                            if rand1 == 0:
+                            locationRandom = random.randint(0, 3)
+                            print('location random is : ' + str(locationRandom))
+                            rightDone = False
+                            leftDone = False
+                            upDone = False
+                            downDone = False
+                            r_counter = 0
+                            l_counter = 0
+                            u_counter = 0
+                            d_counter = 0
+
+                            if locationRandom == 0 and r_counter == 1:
+                                locationRandom = 1
+
+                            if locationRandom == 1 and l_counter == 1:
+                                locationRandom = 2
+
+                            if locationRandom == 2 and u_counter == 1:
+                                locationRandom = 3
+
+                            if locationRandom == 3 and d_counter == 1:
+
+                                if not u_counter:
+                                    locationRandom = 2
+                                elif not r_counter:
+                                    locationRandom = 0
+                                elif not l_counter:
+                                    locationRandom = 1
+
+                            if locationRandom == 0:
                                 worksheet.write('C' + str(index + 1), 'Right')
-                            if rand1 == 1:
+                                rightDone = True
+                                r_counter += 1
+
+                            if locationRandom == 1:
                                 worksheet.write('C' + str(index + 1), 'Left')
-                            if rand1 == 2:
+                                leftDone = True
+                                l_counter += 1
+
+                            if locationRandom == 2:
                                 worksheet.write('C' + str(index + 1), 'Up')
-                            if rand1 == 3:
+                                upDone = True
+                                u_counter += 1
+
+                            if locationRandom == 3:
                                 worksheet.write('C' + str(index + 1), 'Down')
+                                downDone = True
+                                d_counter += 1
+
+
 
 
 
@@ -268,7 +311,7 @@ class GLGL(object):
                             if maintypeRandom == 0 and (rand1 == 2 or rand1 == 3):
                                 worksheet.write('B' + str(index + 1), '1')
 
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRandom])
                                 imageStims[rand1].draw()
                                 win.flip()
                                 core.wait(0.3)
@@ -339,12 +382,12 @@ class GLGL(object):
                             counter = core.CountdownTimer(4)
                             flag = True
                             while flag:
-                                keys = event.getKeys(keyList=['end', 'down'])
+                                keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
                                 if keys:
                                     for key in keys:
-                                        if key == 'end':
+                                        if key == 'end' or key == '1':
                                             worksheet.write('F' + str(index + 1), '1')
-                                        if key == 'down':
+                                        if key == 'down' or key == '2':
                                             worksheet.write('F' + str(index + 1), '2')
 
                                         worksheet.write('H' + str(index + 1), '=IF(G' + str(index + 1) + '= F' +
@@ -372,7 +415,7 @@ class GLGL(object):
             win.flip()
             flag = True
             while flag:
-                keys = event.getKeys(keyList=['m'])
+                keys = event.waitKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         localFirstInstructionImage.autoDraw = False
@@ -382,7 +425,7 @@ class GLGL(object):
 
             flags = True
             while flags:
-                keys = event.getKeys(keyList=['m'])
+                keys = event.waitKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         instructionImage2.autoDraw = False
@@ -445,10 +488,10 @@ class GLGL(object):
 
                             flag = True
                             while flag:
-                                keys = event.getKeys(keyList=['end', 'down'])
+                                keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
                                 if keys:
                                     if ltypeRandom == 0 and (rand1 == 1 or rand1 == 2):
-                                        if keys[0] == 'end':
+                                        if keys[0] == 'end' or key == '1':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -459,7 +502,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if ltypeRandom == 0 and (rand1 == 0 or rand1 == 3):
-                                        if keys[0] == 'down':
+                                        if keys[0] == 'down' or key == '2':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -469,7 +512,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if ltypeRandom == 1 and (rand1 == 0 or rand1 == 3):
-                                        if keys[0] == 'down':
+                                        if keys[0] == 'down' or keys[0] == '2':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -479,7 +522,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if ltypeRandom == 1 and (rand1 == 1 or rand1 == 2):
-                                        if keys[0] == 'end':
+                                        if keys[0] == 'end' or keys[0] == '1':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -502,7 +545,7 @@ class GLGL(object):
 
             temp = True
             while temp:
-                keys = event.getKeys(keyList=['m'])
+                keys = event.waitKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         localSecondInstructionImage.autoDraw = False
@@ -640,12 +683,12 @@ class GLGL(object):
 
                             flag = True
                             while flag:
-                                keys = event.getKeys(keyList=['end', 'down'])
+                                keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
                                 if keys:
                                     for key in keys:
-                                        if key == 'end':
+                                        if key == 'end' or key == '1':
                                             worksheet.write('F' + str(index + 1), '1')
-                                        if key == 'down':
+                                        if key == 'down' or key == '2':
                                             worksheet.write('F' + str(index + 1), '2')
 
                                         worksheet.write('H' + str(index + 1), '=IF(G' + str(index + 1) + '= F' +
