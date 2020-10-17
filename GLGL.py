@@ -69,7 +69,7 @@ class GLGL(object):
             win.flip()
             flag = True
             while flag:
-                keys = event.waitKeys(keyList=['m'])
+                keys = event.getKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         globalFirstInstructionImage.autoDraw = False
@@ -79,7 +79,7 @@ class GLGL(object):
 
             temp = True
             while temp:
-                keys = event.waitKeys(keyList=['m'])
+                keys = event.getKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         instructionImage2.autoDraw = False
@@ -88,6 +88,10 @@ class GLGL(object):
                         c_counter = 0
                         i_counter = 0
                         # Global Practice
+                        rightShown = False
+                        leftShown = False
+                        downShown = False
+                        upShown = False
                         for j in range(1, 5):
                             rand1 = random.randrange(0, 3)
                             rand2 = 3 - rand1
@@ -102,13 +106,37 @@ class GLGL(object):
                             fixationPoint.autoDraw = False
 
                             gtypeRandom = random.randint(0, 1)
-
-                            # print('type is ' + str(typeRandom))
-                            # print('i counter is ' + str(i_counter))
-                            # print('c counter is ' + str(c_counter))
-
                             # 0 -> congruent
                             # 1 -> incongruent
+
+                            locationRand = random.randint(0, 3)
+
+                            if locationRand == 0 and rightShown:
+                                locationRand = 1
+                            if locationRand == 1 and leftShown:
+                                locationRand = 2
+                            if locationRand == 2 and upShown:
+                                locationRand = 3
+                            if locationRand == 3 and downShown:
+                                if not rightShown:
+                                    locationRand = 0
+                                elif not leftShown:
+                                    locationRand = 1
+                                elif not upShown:
+                                    locationRand = 2
+                            print('locations is :' + str(locationRand))
+
+                            if locationRand == 0:
+                                rightShown = True
+                            if locationRand == 1:
+                                leftShown = True
+                            if locationRand == 2:
+                                upShown = True
+                            if locationRand == 3:
+                                downShown = True
+
+
+
                             if gtypeRandom == 0 and c_counter == 2:
                                 gtypeRandom = 1
 
@@ -116,7 +144,7 @@ class GLGL(object):
                                 gtypeRandom = 0
 
                             if gtypeRandom == 0 and (rand1 == 2 or rand1 == 3):
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
 
                                 win.flip()
@@ -124,21 +152,21 @@ class GLGL(object):
                                 c_counter += 1
 
                             if gtypeRandom == 0 and (rand1 == 0 or rand1 == 1):
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
                                 win.flip()
                                 core.wait(0.3)
                                 c_counter += 1
 
                             if gtypeRandom == 1 and (rand1 == 0 or rand1 == 1):
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
                                 win.flip()
                                 core.wait(0.3)
                                 i_counter += 1
 
                             if gtypeRandom == 1 and (rand1 == 2 or rand1 == 3):
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
                                 win.flip()
                                 core.wait(0.3)
@@ -153,7 +181,7 @@ class GLGL(object):
                             testTimer = core.CountdownTimer(4)
                             flag = True
                             while flag:
-                                keys = event.waitKeys(keyList=['end', 'down'], maxWait=4)
+                                keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
                                 if keys:
 
                                     if gtypeRandom == 0 and (rand1 == 1 or rand1 == 2):
@@ -167,7 +195,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if gtypeRandom == 0 and (rand1 == 0 or rand1 == 3):
-                                        if keys[0] == 'down'or keys[0] == '2':
+                                        if keys[0] == 'down' or keys[0] == '2':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -209,7 +237,7 @@ class GLGL(object):
 
             temp1 = True
             while temp1:
-                keys = event.waitKeys(keyList=['m'])
+                keys = event.getKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         globalSecondInstructionImage.autoDraw = False
@@ -218,6 +246,10 @@ class GLGL(object):
                         main_i_counter = 0
                         main_c_counter = 0
                         # Global main task
+                        rightShown = False
+                        leftShown = False
+                        downShown = False
+                        upShown = False
                         for index in range(1, 5):
                             if i == 2:
                                 index += 8
@@ -234,56 +266,37 @@ class GLGL(object):
                             rand1 = random.randint(0, 3)
                             rand2 = 3 - rand1
 
-                            locationRandom = random.randint(0, 3)
-                            print('location random is : ' + str(locationRandom))
-                            rightDone = False
-                            leftDone = False
-                            upDone = False
-                            downDone = False
-                            r_counter = 0
-                            l_counter = 0
-                            u_counter = 0
-                            d_counter = 0
 
-                            if locationRandom == 0 and r_counter == 1:
-                                locationRandom = 1
+                            locationRand = random.randint(0, 3)
 
-                            if locationRandom == 1 and l_counter == 1:
-                                locationRandom = 2
+                            if locationRand == 0 and rightShown:
+                                locationRand = 1
+                            if locationRand == 1 and leftShown:
+                                locationRand = 2
+                            if locationRand == 2 and upShown:
+                                locationRand = 3
+                            if locationRand == 3 and downShown:
+                                if not rightShown:
+                                    locationRand = 0
+                                elif not leftShown:
+                                    locationRand = 1
+                                elif not upShown:
+                                    locationRand = 2
+                            print('locations is :' + str(locationRand))
 
-                            if locationRandom == 2 and u_counter == 1:
-                                locationRandom = 3
 
-                            if locationRandom == 3 and d_counter == 1:
-
-                                if not u_counter:
-                                    locationRandom = 2
-                                elif not r_counter:
-                                    locationRandom = 0
-                                elif not l_counter:
-                                    locationRandom = 1
-
-                            if locationRandom == 0:
+                            if locationRand == 0:
+                                rightShown = True
                                 worksheet.write('C' + str(index + 1), 'Right')
-                                rightDone = True
-                                r_counter += 1
-
-                            if locationRandom == 1:
+                            if locationRand == 1:
+                                leftShown = True
                                 worksheet.write('C' + str(index + 1), 'Left')
-                                leftDone = True
-                                l_counter += 1
-
-                            if locationRandom == 2:
+                            if locationRand == 2:
+                                upShown = True
                                 worksheet.write('C' + str(index + 1), 'Up')
-                                upDone = True
-                                u_counter += 1
-
-                            if locationRandom == 3:
+                            if locationRand == 3:
+                                downShown = True
                                 worksheet.write('C' + str(index + 1), 'Down')
-                                downDone = True
-                                d_counter += 1
-
-
 
 
 
@@ -311,7 +324,7 @@ class GLGL(object):
                             if maintypeRandom == 0 and (rand1 == 2 or rand1 == 3):
                                 worksheet.write('B' + str(index + 1), '1')
 
-                                imageStims[rand1].setPos(positions[locationRandom])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
                                 win.flip()
                                 core.wait(0.3)
@@ -326,7 +339,7 @@ class GLGL(object):
                             if maintypeRandom == 0 and (rand1 == 0 or rand1 == 1):
                                 worksheet.write('B' + str(index + 1), '1')
 
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
                                 win.flip()
 
@@ -343,7 +356,7 @@ class GLGL(object):
                             if maintypeRandom == 1 and (rand1 == 0 or rand1 == 1):
                                 worksheet.write('B' + str(index + 1), '0')
 
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
                                 win.flip()
 
@@ -360,7 +373,7 @@ class GLGL(object):
                             if maintypeRandom == 1 and (rand1 == 2 or rand1 == 3):
                                 worksheet.write('B' + str(index + 1), '0')
 
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
                                 win.flip()
 
@@ -415,7 +428,7 @@ class GLGL(object):
             win.flip()
             flag = True
             while flag:
-                keys = event.waitKeys(keyList=['m'])
+                keys = event.getKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         localFirstInstructionImage.autoDraw = False
@@ -425,7 +438,7 @@ class GLGL(object):
 
             flags = True
             while flags:
-                keys = event.waitKeys(keyList=['m'])
+                keys = event.getKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         instructionImage2.autoDraw = False
@@ -433,6 +446,11 @@ class GLGL(object):
                         win.flip()
                         i_counter = 0
                         c_counter = 0
+
+                        rightShown = False
+                        leftShown = False
+                        downShown = False
+                        upShown = False
                         # Local Practice
                         for index in range(1, 5):
                             rand1 = random.randint(0, 3)
@@ -447,34 +465,60 @@ class GLGL(object):
                             # 0 -> congruent
                             # 1 -> incongruent
 
+                            locationRand = random.randint(0, 3)
+
+                            if locationRand == 0 and rightShown:
+                                locationRand = 1
+                            if locationRand == 1 and leftShown:
+                                locationRand = 2
+                            if locationRand == 2 and upShown:
+                                locationRand = 3
+                            if locationRand == 3 and downShown:
+                                if not rightShown:
+                                    locationRand = 0
+                                elif not leftShown:
+                                    locationRand = 1
+                                elif not upShown:
+                                    locationRand = 2
+                            print('locations is :' + str(locationRand))
+
+                            if locationRand == 0:
+                                rightShown = True
+                            if locationRand == 1:
+                                leftShown = True
+                            if locationRand == 2:
+                                upShown = True
+                            if locationRand == 3:
+                                downShown = True
+
                             if ltypeRandom == 0 and c_counter == 2:
                                 ltypeRandom = 1
                             if ltypeRandom == 1 and i_counter == 2:
                                 ltypeRandom = 0
 
                             if ltypeRandom == 0 and (rand1 == 2 or rand1 == 3):
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
                                 win.flip()
                                 core.wait(0.3)
                                 c_counter += 1
 
                             if ltypeRandom == 0 and (rand1 == 0 or rand1 == 1):
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
                                 win.flip()
                                 core.wait(0.3)
                                 c_counter += 1
 
                             if ltypeRandom == 1 and (rand1 == 0 or rand1 == 1):
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
                                 win.flip()
                                 core.wait(0.3)
                                 i_counter += 1
 
                             if ltypeRandom == 1 and (rand1 == 2 or rand1 == 3):
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
                                 win.flip()
                                 core.wait(0.3)
@@ -491,7 +535,7 @@ class GLGL(object):
                                 keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
                                 if keys:
                                     if ltypeRandom == 0 and (rand1 == 1 or rand1 == 2):
-                                        if keys[0] == 'end' or key == '1':
+                                        if keys[0] == 'end' or keys[0] == '1':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -502,7 +546,7 @@ class GLGL(object):
                                             core.wait(2)
 
                                     if ltypeRandom == 0 and (rand1 == 0 or rand1 == 3):
-                                        if keys[0] == 'down' or key == '2':
+                                        if keys[0] == 'down' or keys[0] == '2':
                                             correct.draw()
                                             win.flip()
                                             core.wait(2)
@@ -545,7 +589,7 @@ class GLGL(object):
 
             temp = True
             while temp:
-                keys = event.waitKeys(keyList=['m'])
+                keys = event.getKeys(keyList=['m'])
                 for key in keys:
                     if key[0] == 'm':
                         localSecondInstructionImage.autoDraw = False
@@ -555,6 +599,10 @@ class GLGL(object):
                         main_c_counter = 0
 
                         # Local Main task
+                        rightShown = False
+                        leftShown = False
+                        downShown = False
+                        upShown = False
                         for index in range(1, 5):
                             if i == 1:
                                 index += 4
@@ -573,13 +621,34 @@ class GLGL(object):
                             rand1 = random.randint(0, 3)
                             rand2 = 3 - rand1
 
-                            if rand1 == 0:
+                            locationRand = random.randint(0, 3)
+
+                            if locationRand == 0 and rightShown:
+                                locationRand = 1
+                            if locationRand == 1 and leftShown:
+                                locationRand = 2
+                            if locationRand == 2 and upShown:
+                                locationRand = 3
+                            if locationRand == 3 and downShown:
+                                if not rightShown:
+                                    locationRand = 0
+                                elif not leftShown:
+                                    locationRand = 1
+                                elif not upShown:
+                                    locationRand = 2
+                            print('locations is :' + str(locationRand))
+
+                            if locationRand == 0:
+                                rightShown = True
                                 worksheet.write('C' + str(index + 1), 'Right')
-                            if rand1 == 1:
+                            if locationRand == 1:
+                                leftShown = True
                                 worksheet.write('C' + str(index + 1), 'Left')
-                            if rand1 == 2:
+                            if locationRand == 2:
+                                upShown = True
                                 worksheet.write('C' + str(index + 1), 'Up')
-                            if rand1 == 3:
+                            if locationRand == 3:
+                                downShown = True
                                 worksheet.write('C' + str(index + 1), 'Down')
 
                             globalSecondInstructionImage.autoDraw = False
@@ -604,7 +673,7 @@ class GLGL(object):
                             if maintypeRandom == 0 and (rand1 == 2 or rand1 == 3):
                                 worksheet.write('B' + str(index + 1), '1')
 
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
 
                                 win.flip()
@@ -622,7 +691,7 @@ class GLGL(object):
                             if maintypeRandom == 0 and (rand1 == 0 or rand1 == 1):
                                 worksheet.write('B' + str(index + 1), '1')
 
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
 
                                 win.flip()
@@ -640,7 +709,7 @@ class GLGL(object):
                             if maintypeRandom == 1 and (rand1 == 0 or rand1 == 1):
                                 worksheet.write('B' + str(index + 1), '0')
 
-                                imageStims[rand1].setPos(positions[rand1])
+                                imageStims[rand1].setPos(positions[locationRand])
                                 imageStims[rand1].draw()
 
                                 win.flip()
@@ -658,7 +727,7 @@ class GLGL(object):
                             if maintypeRandom == 1 and (rand1 == 2 or rand1 == 3):
                                 worksheet.write('B' + str(index + 1), '0')
 
-                                imageStims[rand2].setPos(positions[rand1])
+                                imageStims[rand2].setPos(positions[locationRand])
                                 imageStims[rand2].draw()
 
                                 win.flip()

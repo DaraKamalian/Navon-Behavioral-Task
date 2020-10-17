@@ -11,6 +11,7 @@ class dialoguebox(object):
         Dlg.addField('Stimulation Site', choices=['R-PPC', 'L-PPC', 'CZ'])
         Dlg.addField('Session', choices=['1', '2'])
         Dlg.addField('Handedness', choices=['Right', 'Left'])
+        Dlg.addField('Resp-Version', choices=['Same-A', 'Same-L'])
         ok_data = Dlg.show()
 
         subjectName = ok_data[0]
@@ -21,6 +22,7 @@ class dialoguebox(object):
         stimSite = ok_data[5]
         sessionNumber = ok_data[6]
         handedness = ok_data[7]
+
 
         subjectInfo = [subjectName, subjectNumber, dayNumber, subjectGender, subjectAge,  stimSite, sessionNumber,
                        handedness]
