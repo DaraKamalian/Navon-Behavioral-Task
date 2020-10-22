@@ -23,7 +23,6 @@ class dialoguebox(object):
         sessionNumber = ok_data[6]
         handedness = ok_data[7]
 
-
         subjectInfo = [subjectName, subjectNumber, dayNumber, subjectGender, subjectAge,  stimSite, sessionNumber,
                        handedness]
         return subjectInfo
