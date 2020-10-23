@@ -46,19 +46,19 @@ class LGLG(object):
     def LGLGtask(self, subjectInfoList):
 
         workbook = xlsxwriter.Workbook(
-            str(subjectInfoList[0]) + 'S' + str(subjectInfoList[6] + 'D' + str(subjectInfoList[2]) + '.xlsx')
+            str(subjectInfoList[0]) + 'D' + str(subjectInfoList[3]) + 'S' + str(subjectInfoList[7] + '.xlsx')
         )
 
         worksheet = workbook.add_worksheet()
-        worksheet.write('A1', 'Subject Name: ' + str(subjectInfoList[0]))
-        worksheet.write('B1', 'Subject Number: ' + str(subjectInfoList[1]))
-        worksheet.write('C1', 'Subject Age: ' + str(subjectInfoList[4]))
-        worksheet.write('D1', 'Subject Gender: ' + str(subjectInfoList[3]))
-        worksheet.write('E1', 'Subject Number: ' + str(subjectInfoList[1]))
-        worksheet.write('F1', 'Subject Handedness: ' + str(subjectInfoList[7]))
-        worksheet.write('G1', 'Stimulation Site: ' + str(subjectInfoList[5]))
-        worksheet.write('H1', 'Experiment Session: ' + str(subjectInfoList[6]))
-        worksheet.write('I1', 'Experiment Day: ' + str(subjectInfoList[2]))
+        worksheet.write('A1', 'Subject Name: ' + str(subjectInfoList[0]) + ' ' + str(subjectInfoList[1]))
+        worksheet.write('B1', 'Subject Number: ' + str(subjectInfoList[2]))
+        worksheet.write('C1', 'Subject Age: ' + str(subjectInfoList[5]))
+        worksheet.write('D1', 'Subject Gender: ' + str(subjectInfoList[4]))
+        worksheet.write('E1', 'Subject Number: ' + str(subjectInfoList[2]))
+        worksheet.write('F1', 'Subject Handedness: ' + str(subjectInfoList[8]))
+        worksheet.write('G1', 'Stimulation Site: ' + str(subjectInfoList[6]))
+        worksheet.write('H1', 'Experiment Session: ' + str(subjectInfoList[7]))
+        worksheet.write('I1', 'Experiment Day: ' + str(subjectInfoList[3]))
         worksheet.write('J1', 'Datetime: ' + str(datetime.datetime.today()))
         
         HeaderFormat = workbook.add_format({
