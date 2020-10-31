@@ -9,6 +9,7 @@ imageHH = images.imageHH
 imageHS = images.imageHS
 imageSH = images.imageSH
 imageSS = images.imageSS
+
 imageStims = [imageHS, imageSH, imageHH, imageSS]
 
 globalFirstInstructionImage = images.globalFirstInstructionImage
@@ -326,9 +327,11 @@ class Local(object):
                     c_down += 1
                     visualfield = 'Down'
 
+                # 2 -> HH, 3 -> SS
+
                 list = [imageStims[2], imageStims[3]]
                 rand = random.randint(0, 1)
-                if rand and sscounter == 12:
+                if rand == 1 and sscounter == 12:
                     rand = 0
                 if not rand and hhcounter == 12:
                     rand = 1
@@ -344,6 +347,7 @@ class Local(object):
                     imagefile = 'ex1'
                     congruency = '1'
                     corans = '1'
+
                 # SS, ex4
                 elif rand == 1:
                     sscounter += 1
@@ -381,27 +385,29 @@ class Local(object):
                     i_down += 1
                     visualfield = 'Down'
 
+                # 0 -> HS , 1 -> SH
                 list = [imageStims[0], imageStims[1]]
                 rand = random.randint(0, 1)
-                if rand and shcounter == 12:
+
+                if rand == 1 and shcounter == 12:
                     rand = 0
-                if not rand and hscounter == 12:
+                if rand == 0 and hscounter == 12:
                     rand = 1
+
                 list[rand].setPos(positions[locrand])
                 list[rand].draw()
                 win.flip()
                 core.wait(0.3)
                 drawlist.append(list[rand])
                 # SH, ex2
-                if rand:
-                    shcounter += 1
+                if rand == 1:
                     shcounter += 1
                     imagefile = 'ex2'
                     congruency = '0'
                     corans = '1'
+
                 # HS, ex3
-                else:
-                    hscounter += 1
+                elif rand == 0:
                     hscounter += 1
                     imagefile = 'ex3'
                     congruency = '0'
