@@ -55,10 +55,10 @@ if int(subjectInfo[2]) % 6 == 5:
 print('here')
 Config.append_list_as_row(Config.filename, ['Subject Name: ' + str(subjectInfo[0]) + ' ' + str(subjectInfo[1]),
                                             'Subject Number: ' + str(subjectInfo[2]),
-                                            'Age: ' + str(subjectInfo[6]), 'Gender: ' + str(subjectInfo[5]),
+                                            'Age: ' + str(subjectInfo[5]), 'Gender: ' + str(subjectInfo[4]),
                                             'Handedness: ' + str(subjectInfo[8]),
-                                            'Stimulation Site: ' + str(subjectInfo[7]),
-                                            'Session: ' + str(subjectInfo[8]),
+                                            'Stimulation Site: ' + str(subjectInfo[6]),
+                                            'Session: ' + str(subjectInfo[7]),
                                             'Datetime: ' + str(datetime.datetime.today())])
 
 Config.convertToExcel()

@@ -33,10 +33,11 @@ class Local(object):
         visualfield = ''
         accuracy = 0
         keyrespstart = 0
-        anslist = []
+
         corans = ''
         isLate = False
 
+        Config.blockcounter += 1
         generalTimer = core.getTime()
         localFirstInstructionImage.draw()
         win.flip()
@@ -62,145 +63,153 @@ class Local(object):
                     c_counter = 0
                     i_counter = 0
 
-                    rightcounter = 0
-                    leftcounter = 0
-                    downcounter = 0
-                    upcounter = 0
+                    c_right = 0
+                    c_left = 0
+                    c_up = 0
+                    c_down = 0
+
+                    i_right = 0
+                    i_left = 0
+                    i_up = 0
+                    i_down = 0
 
                     for j in range(1, 17):
-                        rand1 = random.randrange(0, 3)
-                        rand2 = 3 - rand1
-                        print(rand1)
-                        print(rand2)
-
-                        instructionImage2.autoDraw = False
                         fixationPoint.draw()
                         win.flip()
                         core.wait(1)
 
                         fixationPoint.autoDraw = False
 
-                        ltypeRandom = random.randint(0, 1)
-                        # 0 -> congruent
-                        # 1 -> incongruent
+                        typerandom = random.randint(0, 1)
+                        # 0 -> Incongruent
+                        # 1 -> Congruent
 
-                        locationRand = random.randint(0, 3)
+                        if typerandom and c_counter == 8:
+                            typerandom = 0
+                        if not typerandom and i_counter == 8:
+                            typerandom = 1
 
-                        if locationRand == 0 and rightcounter == 4:
-                            locationRand = 1
-                        if locationRand == 1 and leftcounter == 4:
-                            locationRand = 2
-                        if locationRand == 2 and upcounter == 4:
-                            locationRand = 3
-                        if locationRand == 3 and downcounter == 4:
-
-                            if rightcounter < 4:
-                                locationRand = 0
-
-                            elif leftcounter < 4:
-                                locationRand = 1
-
-                            elif not upcounter < 4:
-                                locationRand = 2
-
-                        print('locations is :' + str(locationRand))
-
-                        if locationRand == 0:
-                            rightcounter += 1
-                        if locationRand == 1:
-                            leftcounter += 1
-                        if locationRand == 2:
-                            upcounter += 1
-                        if locationRand == 3:
-                            downcounter += 1
-
-                        if ltypeRandom == 0 and c_counter == 8:
-                            ltypeRandom = 1
-
-                        if ltypeRandom == 1 and i_counter == 8:
-                            ltypeRandom = 0
-
-                        if ltypeRandom == 0 and (rand1 == 2 or rand1 == 3):
+                        drawlist = []
+                        if typerandom:
                             c_counter += 1
-                            imageStims[rand1].setPos(positions[locationRand])
-                            imageStims[rand1].draw()
+                            locrand = random.randint(0, 3)
 
+                            if locrand == 0 and c_right == 2:
+                                locrand = 1
+                            if locrand == 1 and c_left == 2:
+                                locrand = 2
+                            if locrand == 2 and c_up == 2:
+                                locrand = 3
+                            if locrand == 3 and c_down == 2:
+                                if c_up < 2:
+                                    locrand = 2
+                                elif c_left < 2:
+                                    locrand = 1
+                                elif c_right < 2:
+                                    locrand = 0
+
+                            if locrand == 0:
+                                c_right += 1
+
+                            if locrand == 1:
+                                c_left += 1
+
+                            if locrand == 2:
+                                c_up += 1
+
+                            if locrand == 3:
+                                c_down += 1
+
+                            list = [imageStims[2], imageStims[3]]
+                            rand = random.randint(0, 1)
+                            list[rand].setPos(positions[locrand])
+                            list[rand].draw()
                             win.flip()
                             core.wait(0.3)
-
-                        if ltypeRandom == 0 and (rand1 == 0 or rand1 == 1):
-                            c_counter += 1
-                            imageStims[rand2].setPos(positions[locationRand])
-                            imageStims[rand2].draw()
-                            win.flip()
-                            core.wait(0.3)
-
-                        if ltypeRandom == 1 and (rand1 == 0 or rand1 == 1):
+                            drawlist.append(list[rand])
+                        else:
                             i_counter += 1
-                            imageStims[rand1].setPos(positions[locationRand])
-                            imageStims[rand1].draw()
+                            locrand = random.randint(0, 3)
+
+                            if locrand == 0 and i_right == 2:
+                                locrand = 1
+                            if locrand == 1 and i_left == 2:
+                                locrand = 2
+                            if locrand == 2 and i_up == 2:
+                                locrand = 3
+                            if locrand == 3 and i_down == 2:
+                                if i_up < 2:
+                                    locrand = 2
+                                elif i_left < 2:
+                                    locrand = 1
+                                elif i_right < 2:
+                                    locrand = 0
+
+                            if locrand == 0:
+                                i_right += 1
+
+                            if locrand == 1:
+                                i_left += 1
+
+                            if locrand == 2:
+                                i_up += 1
+
+                            if locrand == 3:
+                                i_down += 1
+
+                            list = [imageStims[0], imageStims[1]]
+                            rand = random.randint(0, 1)
+                            list[rand].setPos(positions[locrand])
+                            list[rand].draw()
                             win.flip()
                             core.wait(0.3)
+                            drawlist.append(list[rand])
 
-                        if ltypeRandom == 1 and (rand1 == 2 or rand1 == 3):
-                            i_counter += 1
-                            imageStims[rand2].setPos(positions[locationRand])
-                            imageStims[rand2].draw()
-                            win.flip()
-                            core.wait(0.3)
-
-                        imageStims[rand1].autoDraw = False
-                        imageStims[rand2].autoDraw = False
+                        drawlist[0].autoDraw = False
                         questionMark.draw()
                         win.flip()
-                        testTimer = core.CountdownTimer(4)
+                        counter = core.CountdownTimer(4)
                         flag = True
                         while flag:
                             keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
                             if keys:
-
-                                if ltypeRandom == 0 and (rand1 == 1 or rand1 == 2):
-                                    if keys[0] == 'end' or keys[0] == '1':
-                                        correct.draw()
-                                        win.flip()
-                                        core.wait(2)
-                                    else:
+                                if keys[0] == '2' or keys[0] == 'down':
+                                    if drawlist[0] == imageStims[1]:
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
-
-                                if ltypeRandom == 0 and (rand1 == 0 or rand1 == 3):
-                                    if keys[0] == 'down' or keys[0] == '2':
+                                    if drawlist[0] == imageStims[3]:
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
-                                    else:
-                                        wrong.draw()
-                                        win.flip()
-                                        core.wait(2)
-
-                                if ltypeRandom == 1 and (rand1 == 0 or rand1 == 3):
-                                    if keys[0] == 'down' or keys[0] == '2':
+                                    if drawlist[0] == imageStims[0]:
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
-                                    else:
+                                    if drawlist[0] == imageStims[2]:
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
-
-                                if ltypeRandom == 1 and (rand1 == 1 or rand1 == 2):
-                                    if keys[0] == 'end' or keys[0] == '1':
+                                if keys[0] == '1' or keys[0] == 'end':
+                                    if drawlist[0] == imageStims[1]:
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
-                                    else:
+                                    if drawlist[0] == imageStims[3]:
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
-
+                                    if drawlist[0] == imageStims[0]:
+                                        wrong.draw()
+                                        win.flip()
+                                        core.wait(2)
+                                    if drawlist[0] == imageStims[2]:
+                                        correct.draw()
+                                        win.flip()
+                                        core.wait(2)
                                 flag = False
-                            elif testTimer.getTime() <= 0:
+
+                            elif counter.getTime() <= 0:
                                 wrong.draw()
                                 win.flip()
                                 core.wait(2)
@@ -233,7 +242,7 @@ class Local(object):
 
         # Local main task
         for i in range(1, 49):
-
+            Config.trialcounter += 1
             fixationPoint.draw()
             globalTimer = core.getTime()
             if Config.trialcounter == 1:
@@ -249,7 +258,6 @@ class Local(object):
             fixationPoint.autoDraw = False
             win.flip()
 
-            Config.trialcounter += 1
             block = '0'
             typerandom = random.randint(0, 1)
             # 0 -> Incongruent
@@ -362,6 +370,7 @@ class Local(object):
             questionMark.draw()
             win.flip()
             counter = core.CountdownTimer(4)
+            anslist = []
             flag = True
             while flag:
                 keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
@@ -397,11 +406,11 @@ class Local(object):
                 accuracy = 'None'
                 keyrespstart = 'None'
 
-            Headers = ['ImageFile', 'Congruency', 'Visual Field', 'Block', 'Trial', 'Key-Resp', 'Cor-Ans', 'Accuracy',
+            Headers = ['ImageFile', 'Congruency', 'Visual Field', 'Block', 'G.L.Block', 'Trial', 'Key-Resp', 'Cor-Ans', 'Accuracy',
                        'R-time', 'Trial-Start', 'Key-Resp-Start']
 
             toWrite = {'ImageFile': imagefile, 'Congruency': congruency, 'Visual Field': visualfield,
-                       'Block': block, 'Trial': Config.trialcounter, 'Key-Resp': keyresp,
+                       'Block': Config.blockcounter,'G.L.Block': block, 'Trial': Config.trialcounter, 'Key-Resp': keyresp,
                        'Cor-Ans': corans, 'Accuracy': accuracy,
                        'R-time': rtime, 'Trial-Start': trialstart,
                        'Key-Resp-Start': keyrespstart}

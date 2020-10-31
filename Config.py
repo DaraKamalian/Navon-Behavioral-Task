@@ -8,6 +8,7 @@ practiceDuration = 0
 respversion = 0
 taskversion = 0
 trialcounter = 0
+blockcounter = 0
 trialfinished = 0
 
 def append_dict_as_row(file_name, dict_of_elem, headers):
@@ -18,7 +19,7 @@ def append_dict_as_row(file_name, dict_of_elem, headers):
 
 def createFile(filename):
     with open(filename, 'w', newline='') as file:
-        Headers = ['ImageFile', 'Congruency', 'Visual Field', 'Block', 'Trial', 'Key-Resp', 'Cor-Ans', 'Accuracy',
+        Headers = ['ImageFile', 'Congruency', 'Visual Field', 'Block', 'G.L.Block', 'Trial', 'Key-Resp', 'Cor-Ans', 'Accuracy',
                    'R-time', 'Trial-Start', 'Key-Resp-Start']
 
         writer = csv.DictWriter(file, fieldnames=Headers)
