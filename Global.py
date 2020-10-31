@@ -32,7 +32,6 @@ class Global(object):
         visualfield = ''
         keyrespstart = 0
         corans = ''
-        isLate = False
         accuracy = 0
 
         Config.blockcounter += 1
@@ -329,9 +328,9 @@ class Global(object):
 
                 list = [imageStims[2], imageStims[3]]
                 rand = random.randint(0, 1)
-                if rand and hhcounter == 12:
+                if rand and sscounter == 12:
                     rand = 0
-                if not rand and sscounter == 12:
+                if not rand and hhcounter == 12:
                     rand = 1
                 list[rand].setPos(positions[locrand])
                 list[rand].draw()
@@ -339,13 +338,13 @@ class Global(object):
                 core.wait(0.3)
                 drawlist.append(list[rand])
                 # HH, ex1
-                if rand:
+                if rand == 0:
                     hhcounter += 1
                     imagefile = 'ex1'
                     congruency = '1'
                     corans = '1'
                 # SS, ex4
-                else:
+                elif rand == 1:
                     sscounter += 1
                     imagefile = 'ex4'
                     congruency = '1'
@@ -393,13 +392,13 @@ class Global(object):
                 core.wait(0.3)
                 drawlist.append(list[rand])
                 # SH, ex2
-                if rand:
+                if rand == 1:
                     shcounter += 1
                     imagefile = 'ex2'
                     congruency = '0'
                     corans = '2'
                 # HS, ex3
-                else:
+                elif rand == 0:
                     hscounter += 1
                     imagefile = 'ex3'
                     congruency = '0'
@@ -409,6 +408,7 @@ class Global(object):
             questionMark.draw()
             win.flip()
             counter = core.CountdownTimer(4)
+            isLate = False
             anslist = []
             flag = True
             while flag:

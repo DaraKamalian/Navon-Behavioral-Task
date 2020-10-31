@@ -35,7 +35,7 @@ class Local(object):
         keyrespstart = 0
 
         corans = ''
-        isLate = False
+
 
         Config.blockcounter += 1
         generalTimer = core.getTime()
@@ -328,9 +328,9 @@ class Local(object):
 
                 list = [imageStims[2], imageStims[3]]
                 rand = random.randint(0, 1)
-                if rand and hhcounter == 12:
+                if rand and sscounter == 12:
                     rand = 0
-                if not rand and sscounter == 12:
+                if not rand and hhcounter == 12:
                     rand = 1
 
                 list[rand].setPos(positions[locrand])
@@ -339,13 +339,13 @@ class Local(object):
                 core.wait(0.3)
                 drawlist.append(list[rand])
                 # HH, ex1
-                if rand:
+                if rand == 0:
                     hhcounter += 1
                     imagefile = 'ex1'
                     congruency = '1'
                     corans = '1'
                 # SS, ex4
-                else:
+                elif rand == 1:
                     sscounter += 1
                     imagefile = 'ex4'
                     congruency = '1'
@@ -412,6 +412,7 @@ class Local(object):
             win.flip()
             counter = core.CountdownTimer(4)
             anslist = []
+            isLate = False
             flag = True
             while flag:
                 keys = event.waitKeys(keyList=['end', 'down', '1', '2'], maxWait=4)
