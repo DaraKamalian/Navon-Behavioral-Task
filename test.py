@@ -58,7 +58,7 @@ Config.append_list_as_row(Config.filename, ['Subject Name: ' + str(subjectInfo[0
                                             'Age: ' + str(subjectInfo[5]), 'Gender: ' + str(subjectInfo[4]),
                                             'Handedness: ' + str(subjectInfo[8]),
                                             'Stimulation Site: ' + str(subjectInfo[6]),
-                                            'Session: ' + str(subjectInfo[7]),
+                                            'Experiment Day: ' + str(subjectInfo[3]), 'Session: ' + str(subjectInfo[7]),
                                             'Datetime: ' + str(datetime.datetime.today())])
 
 Config.convertToExcel()

@@ -73,6 +73,11 @@ class Local(object):
                     i_up = 0
                     i_down = 0
 
+                    hhcounter = 0
+                    hscounter = 0
+                    shcounter = 0
+                    sscounter = 0
+
                     for j in range(1, 17):
                         fixationPoint.draw()
                         win.flip()
@@ -122,6 +127,10 @@ class Local(object):
 
                             list = [imageStims[2], imageStims[3]]
                             rand = random.randint(0, 1)
+                            if rand and sscounter == 4:
+                                rand = 0
+                            if not rand and hhcounter == 4:
+                                rand = 1
                             list[rand].setPos(positions[locrand])
                             list[rand].draw()
                             win.flip()
@@ -159,6 +168,10 @@ class Local(object):
 
                             list = [imageStims[0], imageStims[1]]
                             rand = random.randint(0, 1)
+                            if rand and shcounter == 4:
+                                rand = 0
+                            if not rand and hscounter == 4:
+                                rand = 1
                             list[rand].setPos(positions[locrand])
                             list[rand].draw()
                             win.flip()
@@ -175,35 +188,43 @@ class Local(object):
                             if keys:
                                 if keys[0] == '2' or keys[0] == 'down':
                                     if drawlist[0] == imageStims[1]:
+                                        shcounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[3]:
+                                        sscounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[0]:
+                                        hscounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[2]:
+                                        hhcounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                 if keys[0] == '1' or keys[0] == 'end':
                                     if drawlist[0] == imageStims[1]:
+                                        shcounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[3]:
+                                        sscounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[0]:
+                                        hscounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[2]:
+                                        hhcounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
@@ -239,6 +260,11 @@ class Local(object):
         i_left = 0
         i_up = 0
         i_down = 0
+
+        hhcounter = 0
+        hscounter = 0
+        shcounter = 0
+        sscounter = 0
 
         # Local main task
         for i in range(1, 49):
@@ -302,6 +328,11 @@ class Local(object):
 
                 list = [imageStims[2], imageStims[3]]
                 rand = random.randint(0, 1)
+                if rand and hhcounter == 12:
+                    rand = 0
+                if not rand and sscounter == 12:
+                    rand = 1
+
                 list[rand].setPos(positions[locrand])
                 list[rand].draw()
                 win.flip()
@@ -309,11 +340,13 @@ class Local(object):
                 drawlist.append(list[rand])
                 # HH, ex1
                 if rand:
+                    hhcounter += 1
                     imagefile = 'ex1'
                     congruency = '1'
                     corans = '1'
                 # SS, ex4
                 else:
+                    sscounter += 1
                     imagefile = 'ex4'
                     congruency = '1'
                     corans = '2'
@@ -350,6 +383,10 @@ class Local(object):
 
                 list = [imageStims[0], imageStims[1]]
                 rand = random.randint(0, 1)
+                if rand and shcounter == 12:
+                    rand = 0
+                if not rand and hscounter == 12:
+                    rand = 1
                 list[rand].setPos(positions[locrand])
                 list[rand].draw()
                 win.flip()
@@ -357,11 +394,15 @@ class Local(object):
                 drawlist.append(list[rand])
                 # SH, ex2
                 if rand:
+                    shcounter += 1
+                    shcounter += 1
                     imagefile = 'ex2'
                     congruency = '0'
                     corans = '1'
                 # HS, ex3
                 else:
+                    hscounter += 1
+                    hscounter += 1
                     imagefile = 'ex3'
                     congruency = '0'
                     corans = '2'
@@ -383,7 +424,7 @@ class Local(object):
                             anslist.append('2')
 
                         rtime = 4 - counter.getTime() + 0.3
-                        keyrespstart = 4 - counter.getTime() + 0.3 + trialstart + 1
+                        keyrespstart = 4 - counter.getTime() + 0.3 + trialstart
                         flag = False
 
                 elif counter.getTime() <= 0:
