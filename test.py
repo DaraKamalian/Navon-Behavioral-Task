@@ -1,59 +1,73 @@
-from ImageStims import Images
-from Window import window
+
 from DialogueBox import dialoguebox
+from EndMessage import EndMessage
+import Config, datetime, glob, os
+from psychopy import core, event
 
-from GLLG import GLLG
-from LGLG import LGLG
-from LLGG import LLGG
-from LGGL import LGGL
-from GGLL import GGLL
-from GLGL import GLGL
 
-window = window()
-win = window.win
+from Global import Global
+from Local import Local
 
-images = Images()
-imageHH = images.imageHH
-imageHS = images.imageHS
-imageSH = images.imageSH
-imageSS = images.imageSS
-imageStims = [imageHS, imageSH, imageHH, imageSS]
+event.globalKeys.clear()
+event.globalKeys.add(key='q', func=os._exit, func_args=[1], func_kwargs=None)
 
-globalFirstInstructionImage = images.globalFirstInstructionImage
-instructionImage2 = images.instructionImage2
-globalSecondInstructionImage = images.globalSecondInstructionImage
-localFirstInstructionImage = images.localFirstInstructionImage
-localSecondInstructionImage = images.localSecondInstructionImage
-fixationPoint = images.fixationPoint
-questionMark = images.questionMark
-correct = images.correct
-wrong = images.wrong
-
+for filename in glob.glob('./*.csv'):
+    os.remove(filename)
 subjectInfo = dialoguebox().showDialogBox()
+Config.filename = subjectInfo[0] + '.' + subjectInfo[1] + '.D' + subjectInfo[3] + '.S' + subjectInfo[7] + '.csv'
+Config.createFile(Config.filename)
 
-if int(subjectInfo[1]) % 6 == 0:
-    task = GLGL()
-    task.GLGLtask(subjectInfo)
+if int(subjectInfo[2]) % 6 == 0:
+    for index in range(1, 3):
+        Global().Global()
+        Local().Local()
 
-if int(subjectInfo[1]) % 6 == 1:
-    task = GLLG()
-    task.GLLGtask(subjectInfo)
+if int(subjectInfo[2]) % 6 == 1:
 
-if int(subjectInfo[1]) % 6 == 2:
-    task = LGGL()
-    task.LGGLtask(subjectInfo)
+    Global().Global()
+    for index in range(1, 3):
+        Local().Local()
+    Global().Global()
 
-if int(subjectInfo[1]) % 6 == 3:
-    task = LLGG()
-    task.LLGGtask(subjectInfo)
+if int(subjectInfo[2]) % 6 == 2:
 
-if int(subjectInfo[1]) % 6 == 4:
-    task = GGLL()
-    task.GGLLtask(subjectInfo)
+    Local().Local()
+    for index in range(1, 3):
+        Global().Global()
+    Local().Local()
 
-if int(subjectInfo[1]) % 6 == 5:
-    task = LGLG()
-    task.LGLGtask(subjectInfo)
+if int(subjectInfo[2]) % 6 == 3:
+    for index in range(1, 3):
+        Local().Local()
+    for index in range(1, 3):
+        Global().Global()
+
+if int(subjectInfo[2]) % 6 == 4:
+    for index in range(1, 3):
+        Global().Global()
+    for index in range(1, 3):
+        Local().Local()
+
+if int(subjectInfo[2]) % 6 == 5:
+    for index in range(1, 3):
+        Local().Local()
+        Global().Global()
+print('here')
+Config.append_list_as_row(Config.filename, ['Subject Name: ' + str(subjectInfo[0]) + ' ' + str(subjectInfo[1]),
+                                            'Subject Number: ' + str(subjectInfo[2]),
+                                            'Age: ' + str(subjectInfo[5]), 'Gender: ' + str(subjectInfo[4]),
+                                            'Handedness: ' + str(subjectInfo[8]),
+                                            'Stimulation Site: ' + str(subjectInfo[6]),
+                                            'Experiment Day: ' + str(subjectInfo[3]), 'Session: ' + str(subjectInfo[7]),
+                                            'Datetime: ' + str(datetime.datetime.today())])
+
+Config.convertToExcel()
+for filename in glob.glob('./*.csv'):
+    os.remove(filename)
+EndMessage().displayEndMessage()
+core.quit()
+
+
 
 
 
