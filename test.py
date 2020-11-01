@@ -4,7 +4,6 @@ from EndMessage import EndMessage
 import Config, datetime, glob, os
 from psychopy import core, event
 
-
 from Global import Global
 from Local import Local
 
@@ -23,14 +22,12 @@ if int(subjectInfo[2]) % 6 == 0:
         Local().Local()
 
 if int(subjectInfo[2]) % 6 == 1:
-
     Global().Global()
     for index in range(1, 3):
         Local().Local()
     Global().Global()
 
 if int(subjectInfo[2]) % 6 == 2:
-
     Local().Local()
     for index in range(1, 3):
         Global().Global()
@@ -52,7 +49,6 @@ if int(subjectInfo[2]) % 6 == 5:
     for index in range(1, 3):
         Local().Local()
         Global().Global()
-print('here')
 Config.append_list_as_row(Config.filename, ['Subject Name: ' + str(subjectInfo[0]) + ' ' + str(subjectInfo[1]),
                                             'Subject Number: ' + str(subjectInfo[2]),
                                             'Age: ' + str(subjectInfo[5]), 'Gender: ' + str(subjectInfo[4]),
