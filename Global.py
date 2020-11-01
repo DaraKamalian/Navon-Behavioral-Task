@@ -273,10 +273,10 @@ class Global(object):
             fixationPoint.draw()
             globalTimer = core.getTime()
             if Config.trialcounter == 1:
-                Config.practiceDuration += globalTimer - generalTimer
+                Config.practiceDuration += globalTimer - generalTimer + 1
             else:
                 now = core.getTime()
-                Config.practiceDuration += now - Config.trialfinished
+                Config.practiceDuration += now - Config.trialfinished + 1
             trialstart = Config.practiceDuration
 
             win.flip()
@@ -391,12 +391,14 @@ class Global(object):
                 win.flip()
                 core.wait(0.3)
                 drawlist.append(list[rand])
+
                 # SH, ex2
                 if rand == 1:
                     shcounter += 1
                     imagefile = 'ex2'
                     congruency = '0'
                     corans = '2'
+
                 # HS, ex3
                 elif rand == 0:
                     hscounter += 1
@@ -422,7 +424,7 @@ class Global(object):
                             anslist.append('2')
 
                         rtime = 4 - counter.getTime() + 0.3
-                        keyrespstart = 4 - counter.getTime() + trialstart
+                        keyrespstart = rtime + trialstart
                         flag = False
 
                 elif counter.getTime() <= 0:
