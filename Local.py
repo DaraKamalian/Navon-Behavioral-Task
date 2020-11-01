@@ -341,6 +341,7 @@ class Local(object):
                 win.flip()
                 core.wait(0.3)
                 drawlist.append(list[rand])
+
                 # HH, ex1
                 if rand == 0:
                     hhcounter += 1
@@ -431,7 +432,7 @@ class Local(object):
                             anslist.append('2')
 
                         rtime = 4 - counter.getTime() + 0.3
-                        keyrespstart = 4 - counter.getTime() + 0.3 + trialstart
+                        keyrespstart = 4 - counter.getTime() + trialstart
                         flag = False
 
                 elif counter.getTime() <= 0:
@@ -462,8 +463,8 @@ class Local(object):
                        'Cor-Ans': corans, 'Accuracy': accuracy,
                        'R-time': rtime, 'Trial-Start': trialstart,
                        'Key-Resp-Start': keyrespstart}
-            Config.append_dict_as_row(file_name=Config.filename, dict_of_elem=toWrite, headers=Headers)
 
+            Config.append_dict_as_row(file_name=Config.filename, dict_of_elem=toWrite, headers=Headers)
             Config.trialfinished = core.getTime()
 
             if keyrespstart == 'None':

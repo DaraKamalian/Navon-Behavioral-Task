@@ -422,7 +422,7 @@ class Global(object):
                             anslist.append('2')
 
                         rtime = 4 - counter.getTime() + 0.3
-                        keyrespstart = 4 - counter.getTime() + 0.3 + trialstart
+                        keyrespstart = 4 - counter.getTime() + trialstart
                         flag = False
 
                 elif counter.getTime() <= 0:
