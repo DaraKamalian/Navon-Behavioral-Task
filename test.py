@@ -5,7 +5,6 @@ import Config, datetime, glob, os
 from psychopy import core, event
 from Window import window
 
-
 from Global import Global
 from Local import Local
 
@@ -25,14 +24,12 @@ if int(subjectInfo[2]) % 6 == 0:
         Local().Local()
 
 if int(subjectInfo[2]) % 6 == 1:
-
     Global().Global()
     for index in range(1, 3):
         Local().Local()
     Global().Global()
 
 if int(subjectInfo[2]) % 6 == 2:
-
     Local().Local()
     for index in range(1, 3):
         Global().Global()

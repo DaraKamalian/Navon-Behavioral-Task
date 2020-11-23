@@ -279,25 +279,27 @@ class Global(object):
 
         # Global main task
         for i in range(1, 49):
-            Config.trialcounter += 1
             block = '1'
-
-            fixationPoint.draw()
+            Config.trialcounter += 1
             globalTimer = core.getTime()
-            if Config.trialcounter == 1:
-                Config.practiceDuration += globalTimer - generalTimer + 1
-            else:
-                now = core.getTime()
-                Config.practiceDuration += now - Config.trialfinished + 1
-            trialstart = Config.practiceDuration
-
+            fixationPoint.draw()
             win.flip()
             core.wait(1)
+
+            if Config.trialcounter == 1:
+                Config.practiceDuration += globalTimer - generalTimer
+            else:
+                now = core.getTime()
+                Config.practiceDuration += globalTimer - Config.trialfinished
+
+            trialstart = Config.practiceDuration
+
 
             fixationPoint.autoDraw = False
             win.flip()
 
             typerandom = random.randint(0, 1)
+
             # 0 -> Incongruent
             # 1 -> Congruent
 
@@ -436,7 +438,7 @@ class Global(object):
                             anslist.append('2')
 
                         rtime = 4 - counter.getTime() + 0.3
-                        keyrespstart = rtime + trialstart
+                        keyrespstart = rtime + trialstart + 1
                         flag = False
 
                 elif counter.getTime() <= 0:
@@ -471,7 +473,6 @@ class Global(object):
 
             Config.append_dict_as_row(file_name=Config.filename, dict_of_elem=toWrite, headers=Headers)
             Config.trialfinished = core.getTime()
-
             if keyrespstart == 'None':
                 Config.practiceDuration += 5.3
             else:
