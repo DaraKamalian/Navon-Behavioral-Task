@@ -126,16 +126,22 @@ class Global(object):
                                 c_down += 1
 
                             list = [imageStims[2], imageStims[3]]
-                            rand = random.randint(0, 1)
-                            if rand and sscounter == 4:
-                                rand = 0
-                            if not rand and hhcounter == 4:
-                                rand = 1
-                            list[rand].setPos(positions[locrand])
-                            list[rand].draw()
+                            rand1 = random.randint(0, 1)
+                            # 0 -> HH
+                            # 1 -> SS
+                            if rand1 and sscounter == 4:
+                                rand1 = 0
+                            if not rand1 and hhcounter == 4:
+                                rand1 = 1
+                            if rand1:
+                                sscounter += 1
+                            else:
+                                hhcounter += 1
+                            list[rand1].setPos(positions[locrand])
+                            list[rand1].draw()
                             win.flip()
                             core.wait(0.3)
-                            drawlist.append(list[rand])
+                            drawlist.append(list[rand1])
                         else:
                             i_counter += 1
                             locrand = random.randint(0, 3)
@@ -167,16 +173,22 @@ class Global(object):
                                 i_down += 1
 
                             list = [imageStims[0], imageStims[1]]
-                            rand = random.randint(0, 1)
-                            if rand and shcounter == 4:
-                                rand = 0
-                            if not rand and hscounter == 4:
-                                rand = 1
-                            list[rand].setPos(positions[locrand])
-                            list[rand].draw()
+                            rand2 = random.randint(0, 1)
+                            # 0 -> HS
+                            # 1 -> SH
+                            if rand2 and shcounter == 4:
+                                rand2 = 0
+                            if not rand2 and hscounter == 4:
+                                rand2 = 1
+                            if rand2:
+                                shcounter += 1
+                            else:
+                                hscounter += 1
+                            list[rand2].setPos(positions[locrand])
+                            list[rand2].draw()
                             win.flip()
                             core.wait(0.3)
-                            drawlist.append(list[rand])
+                            drawlist.append(list[rand2])
 
                         drawlist[0].autoDraw = False
                         questionMark.draw()
@@ -188,43 +200,43 @@ class Global(object):
                             if keys:
                                 if keys[0] == '2' or keys[0] == 'down':
                                     if drawlist[0] == imageStims[1]:
-                                        shcounter += 1
+                                        # shcounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[3]:
-                                        sscounter += 1
+                                        # sscounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[0]:
-                                        hscounter += 1
+                                        # hscounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[2]:
-                                        hhcounter += 1
+                                        # hhcounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                 if keys[0] == '1' or keys[0] == 'end':
                                     if drawlist[0] == imageStims[1]:
-                                        shcounter += 1
+                                        # shcounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[3]:
-                                        sscounter += 1
+                                        # sscounter += 1
                                         wrong.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[0]:
-                                        hscounter += 1
+                                        # hscounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)
                                     if drawlist[0] == imageStims[2]:
-                                        hhcounter += 1
+                                        # hhcounter += 1
                                         correct.draw()
                                         win.flip()
                                         core.wait(2)

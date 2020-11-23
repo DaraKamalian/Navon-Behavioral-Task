@@ -12,7 +12,7 @@ class Images(object):
     imageSS = visual.ImageStim(win, image='images/SS.jpg', pos=[0, 0], units='pix', size=[226.768, 272.12])
     imageStims = [imageHS, imageSH, imageHH, imageSS]
 
-    globalFirstInstructionImage = visual.ImageStim(win, image='images/globalFirstInstruction.jpg', pos=[-75, 75],
+    globalFirstInstructionImage = visual.ImageStim(win, image='images/globalFirstInstruction.jpg', pos=[0, 0],
                                                    units='pix',
                                                    size=[1200, 720])
     instructionImage2 = visual.ImageStim(win, image='images/instructionImage2.jpg', pos=[-75, 50], units='pix',
